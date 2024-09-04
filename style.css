@@ -1,0 +1,97 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fdf5f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #e94e77;
+}
+
+.intro {
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+}
+
+.message {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.romantic-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.styled-button {
+    background-color: #e94e77;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.styled-button:hover {
+    background-color: #d43f62;
+}
+
+.question-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.question {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.yes-button {
+    background-color: #4CAF50;
+}
+
+.yes-button:hover {
+    background-color: #45a049;
+}
+
+.no-button {
+    background-color: #f44336;
+}
+
+.no-button:hover {
+    background-color: #e53935;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+}
