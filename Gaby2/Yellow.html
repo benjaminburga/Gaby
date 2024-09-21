@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje para Gaby</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: Arial, sans-serif;
+            color: rgba(169, 169, 169, 0.3);
+            overflow-y: scroll;
+            margin: 0;
+            height: 400vh;
+            position: relative;
+        }
+
+        .name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 4em;
+            transition: opacity 0.5s ease;
+        }
+
+        .name.hidden {
+            opacity: 0;
+        }
+
+        .letter {
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .letter:hover {
+            background: linear-gradient(90deg, #ff007f, #590fb0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .button {
+            margin: 20px auto;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white; /* Cambia el color del texto a blanco */
+            background: linear-gradient(90deg, #ff007f, #590fb0); /* Degradado */
+            border: none; /* Elimina el borde */
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0; /* Inicialmente oculto */
+            transition: opacity 0.5s ease, transform 0.3s ease; /* Transición para aparecer */
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .button.show {
+            opacity: 1; /* Hacer visible */
+        }
+
+        .dedication {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            font-size: 3em;
+            color: rgba(169, 169, 169, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.8s ease;
+            text-align: center;
+        }
+
+        .dedication.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+            background: linear-gradient(90deg, #ff007f, #590fb0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="name" id="name"></div>
+    <audio id="background-music" loop autoplay>
+        <source src="tu_musica.mp3.mp3">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+    <div class="dedication"></div>
+    <a href="https://drive.google.com/file/d/1gRJXdGSJS6NR83fVa9hSv2YmaDMwGpUv/view?usp=sharing" class="button" download="nombre-del-archivo">¡Sorpresa? , dale click aqui y descarga lo que hay!</a>
+
+    <script>
+        const name = "Hola                Eres Hermosa lo sabias?";
+        const dedicationWords = [
+            "Te quiero tanto , que haces que mi corazon este lleno de paz ",
+            "Eres especial para mi y siempre pienso en ti ",
+            "Estas Siempre en mi corazón",
+            "Eres mi inspiración con cada cosa que hago",
+            "Eres mi alegría de mi vida"
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+        });
+
+        function init() {
+            createNameLetters();
+            setupScrollEvents();
+            setupButtonClick();
+            playMusic();
+        }
+
+        function createNameLetters() {
+            const nameDiv = document.getElementById('name');
+            name.split('').forEach((letter, index) => {
+                const span = document.createElement('span');
+                span.textContent = letter === ' ' ? '\u00A0' : letter;
+                span.className = 'letter';
+                setTimeout(() => {
+                    span.style.opacity = 1;
+                    span.style.transform = "scale(1.1)";
+                }, index * 200);
+                nameDiv.appendChild(span);
+            });
+        }
+
+        function playMusic() {
+            const audio = document.getElementById('background-music');
+            audio.play();
+        }
+
+        function setupButtonClick() {
+            document.querySelector('.button').addEventListener('click', () => {
+                alert('¡Gracias por ser tan especial, Gaby!');
+            });
+        }
+
+        function setupScrollEvents() {
+            const dedicationDiv = document.querySelector('.dedication');
+            const button = document.querySelector('.button');
+            const nameDiv = document.getElementById('name');
+            let currentWordIndex = 0;
+            const maxScale = 1.5;
+            const scaleStep = 0.05;
+            let currentScale = 1;
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY + window.innerHeight;
+
+                // Ocultar el nombre al desplazarse hacia abajo
+                if (scrollY > 50) {
+                    nameDiv.classList.add('hidden');
+                } else {
+                    nameDiv.classList.remove('hidden');
+                }
+
+                if (scrollY > (currentWordIndex + 1) * 500 && currentWordIndex < dedicationWords.length) { // Cambié 300 a 500
+                    showDedicationWord(currentWordIndex, dedicationDiv);
+                    currentWordIndex++;
+                    currentScale = 1;
+                }
+
+                if (currentWordIndex > 0) {
+                    currentScale = Math.min(currentScale + scaleStep, maxScale);
+                    dedicationDiv.style.transform = `translate(-50%, -50%) scale(${currentScale})`;
+
+                    // Muestra el botón solo si se han mostrado todas las frases
+                    if (currentWordIndex === dedicationWords.length) {
+                        button.classList.add('show');
+                    }
+                }
+            });
+        }
+
+        function showDedicationWord(index, dedicationDiv) {
+            dedicationDiv.textContent = dedicationWords[index];
+            dedicationDiv.classList.remove('show');
+
+            setTimeout(() => {
+                dedicationDiv.classList.add('show');
+            }, 10);
+        }
+    </script>
+</body>
+</html>
